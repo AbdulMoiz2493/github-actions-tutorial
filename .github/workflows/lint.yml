@@ -25,14 +25,36 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'  # Enable npm caching to speed up installs
+          cache-dependency-path: src/package-lock.json  # Specify the path for caching
+      
+      # Debug: List contents of src directory to verify package.json exists
+      - name: Debug - List src directory contents
+        run: ls -la src
+      
+      # Debug: Verify package.json contents
+      - name: Debug - Show package.json
+        run: cat src/package.json
+      
+      # Clear npm cache to avoid corrupted cache issues
+      - name: Clear npm cache
+        run: npm cache clean --force
       
       # Install all dependencies including devDependencies
       - name: Install dependencies
-        run: cd src && npm install  # Use npm install instead of npm ci for flexibility
+        run: cd src && npm install
+      
+      # Debug: Verify node_modules contents
+      - name: Debug - Check node_modules
+        run: ls -la src/node_modules | grep eslint-plugin-jest
       
       # Verify that eslint-plugin-jest is installed
       - name: Verify ESLint plugin installation
         run: cd src && npm list eslint-plugin-jest || echo "eslint-plugin-jest not found"
+      
+      # Explicitly install eslint-plugin-jest if not found
+      - name: Install eslint-plugin-jest if missing
+        run: cd src && npm install eslint-plugin-jest --save-dev
       
       # Run ESLint to lint the code
       - name: Run ESLint
