@@ -113,9 +113,9 @@ This caches `src/node_modules/` based on `package-lock.json`.
 
 ## Next Steps
 
-✅ Try adding a matrix build to `ci.yml`.
-✅ Create a custom action in your repo.
-✅ Explore the [GitHub Actions Marketplace](https://github.com/marketplace?type=actions) for more actions.
-✅ Refer to the [official documentation](https://docs.github.com/en/actions) for advanced topics.
+- Try adding a matrix build to `ci.yml`.
+- Create a custom action in your repo.
+- Explore the [GitHub Actions Marketplace](https://github.com/marketplace?type=actions) for more actions.
+- Refer to the [official documentation](https://docs.github.com/en/actions) for advanced topics.
 
 ---
