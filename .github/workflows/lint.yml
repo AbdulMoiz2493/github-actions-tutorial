@@ -2,6 +2,7 @@
 name: Lint Code
 
 # Events that trigger the workflow
+# Trigger the workflow on push or pull request events to the main branch
 on:
   push:
     branches: [ main ]
@@ -11,12 +12,15 @@ on:
 # Jobs define the tasks to be executed
 jobs:
   lint:
+    # Use the latest Ubuntu runner for the job
     runs-on: ubuntu-latest
     
     steps:
+      # Check out the repository code to the runner
       - name: Checkout code
         uses: actions/checkout@v4
       
+      # Set up the specified version of Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -24,7 +28,12 @@ jobs:
       
       # Install all dependencies including devDependencies
       - name: Install dependencies
-        run: cd src && npm ci  # Use npm ci for a clean install
+        run: cd src && npm install  # Use npm install instead of npm ci for flexibility
       
+      # Verify that eslint-plugin-jest is installed
+      - name: Verify ESLint plugin installation
+        run: cd src && npm list eslint-plugin-jest || echo "eslint-plugin-jest not found"
+      
+      # Run ESLint to lint the code
       - name: Run ESLint
         run: cd src && npx eslint .
