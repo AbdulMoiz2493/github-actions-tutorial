@@ -29,9 +29,8 @@ export default [
     files: ["**/*.json"],
     language: "json/json",
     rules: {
-      // Use specific rules for JSON validation
-      "jsonc/no-comments": "error", // Disallow comments in JSON
-      "jsonc/valid-json-number": "error" // Ensure valid JSON numbers
+      // Use rules supported by @eslint/json
+      "json/syntax-error": "error" // Ensures JSON files are syntactically valid
     }
   },
 ];
