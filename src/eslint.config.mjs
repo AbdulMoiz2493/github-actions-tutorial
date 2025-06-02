@@ -27,7 +27,6 @@ export default [
   },
   {
     files: ["**/*.json"],
-    ignores: ["package-lock.json", "**/package-lock.json"], // Explicitly ignore package-lock.json at all levels
     plugins: { jsonc },
     rules: {
       "jsonc/no-comments": "error",
