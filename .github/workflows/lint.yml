@@ -2,7 +2,6 @@
 name: Lint Code
 
 # Events that trigger the workflow
-# Runs on push or pull request to the main branch
 on:
   push:
     branches: [ main ]
@@ -11,28 +10,21 @@ on:
 
 # Jobs define the tasks to be executed
 jobs:
-  # Job name for linting
   lint:
-    # Runner: The virtual machine environment (Ubuntu latest version)
     runs-on: ubuntu-latest
     
-    # Steps: Sequential tasks within the job
     steps:
-      # Action: Checks out the repository code to the runner
       - name: Checkout code
         uses: actions/checkout@v4
       
-      # Action: Sets up Node.js environment
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'  # Specifies Node.js version 20
+          node-version: '20'
       
-      # Step: Installs dependencies in the src/ directory
+      # Ensure devDependencies are installed
       - name: Install dependencies
-        run: cd src && npm install
+        run: cd src && npm install --save-dev
       
-      # Step: Runs ESLint to check code quality
-      # Assumes ESLint is configured in src/package.json or src/.eslintrc.json
       - name: Run ESLint
         run: cd src && npx eslint .

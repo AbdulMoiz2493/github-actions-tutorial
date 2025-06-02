@@ -2,42 +2,35 @@
 name: Deploy to GitHub Pages
 
 # Events that trigger the workflow
-# Runs on push to the main branch
 on:
   push:
     branches: [ main ]
 
+# Permissions
+permissions:
+  contents: write  # Required to write to the repository
+
 # Jobs define the tasks to be executed
 jobs:
-  # Job name for deployment
   deploy:
-    # Runner: The virtual machine environment (Ubuntu latest version)
     runs-on: ubuntu-latest
-    
-    # Steps: Sequential tasks within the job
     steps:
-      # Action: Checks out the repository code to the runner
       - name: Checkout code
         uses: actions/checkout@v4
       
-      # Action: Sets up Node.js environment
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'  # Specifies Node.js version 20
+          node-version: '20'
       
-      # Step: Installs dependencies in the src/ directory
       - name: Install dependencies
         run: cd src && npm install
       
-      # Step: Builds the app (assumes a build script in package.json)
-      # For this example, we create a static output in src/dist/
       - name: Build
         run: cd src && npm run build
       
-      # Action: Deploys the built files to GitHub Pages
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}  # Built-in token for GitHub Actions
-          publish_dir: src/dist  # Directory containing the built static files
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: src/dist
