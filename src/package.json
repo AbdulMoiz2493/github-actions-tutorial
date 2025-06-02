@@ -9,6 +9,7 @@
     "build": "mkdir -p dist && cp -r *.js dist/"
   },
   "dependencies": {
+    "eslint-plugin-jsonc": "^2.20.1",
     "express": "^4.18.2"
   },
   "devDependencies": {

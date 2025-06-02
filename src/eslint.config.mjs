@@ -1,6 +1,6 @@
 import js from "@eslint/js";
 import globals from "globals";
-import json from "@eslint/json";
+import jsonc from "eslint-plugin-jsonc";
 import jest from "eslint-plugin-jest";
 
 export default [
@@ -27,10 +27,10 @@ export default [
   },
   {
     files: ["**/*.json"],
-    language: "json/json",
+    plugins: { jsonc },
     rules: {
-      // Use rules supported by @eslint/json
-      "json/syntax-error": "error" // Ensures JSON files are syntactically valid
+      "jsonc/no-comments": "error", // Disallow comments in JSON
+      "jsonc/valid-json-number": "error" // Ensure valid JSON numbers
     }
   },
 ];
