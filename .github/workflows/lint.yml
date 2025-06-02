@@ -22,9 +22,9 @@ jobs:
         with:
           node-version: '20'
       
-      # Ensure devDependencies are installed
+      # Install all dependencies including devDependencies
       - name: Install dependencies
-        run: cd src && npm install --save-dev
+        run: cd src && npm ci  # Use npm ci for a clean install
       
       - name: Run ESLint
         run: cd src && npx eslint .
