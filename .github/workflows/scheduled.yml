@@ -1,0 +1,26 @@
+# Workflow name displayed in the GitHub Actions UI
+name: Scheduled Task
+
+# Events that trigger the workflow
+# Runs on a schedule using cron syntax (daily at midnight UTC)
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Runs every day at 00:00 UTC
+
+# Jobs define the tasks to be executed
+jobs:
+  # Job name for the scheduled task
+  check:
+    # Runner: The virtual machine environment (Ubuntu latest version)
+    runs-on: ubuntu-latest
+    
+    # Steps: Sequential tasks within the job
+    steps:
+      # Action: Checks out the repository code to the runner
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      # Step: Runs a simple script to demonstrate scheduled execution
+      # Outputs a message to the workflow logs
+      - name: Run a script
+        run: echo "This workflow runs daily at midnight UTC!"

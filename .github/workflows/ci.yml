@@ -1,0 +1,44 @@
+# Workflow name displayed in the GitHub Actions UI
+name: CI Pipeline
+
+# Events that trigger the workflow to run
+# 'on' specifies when the workflow should execute, e.g., on push or pull request to the main branch
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+# Jobs define the main tasks or processes that run as part of the workflow
+# A workflow can have multiple jobs, which run in parallel unless dependencies are specified
+jobs:
+  # Job name, can be anything descriptive
+  build:
+    # Runner: The environment where the job executes
+    # 'ubuntu-latest' is a GitHub-hosted virtual machine running the latest Ubuntu version
+    runs-on: ubuntu-latest
+    
+    # Steps: Individual tasks within a job, executed sequentially
+    steps:
+      # Action: A reusable unit of code, often from the GitHub Marketplace
+      # 'actions/checkout@v4' is a pre-built action to check out the repository code
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      # Another action to set up a specific Node.js version
+      # 'uses' references an action, here from the GitHub Marketplace
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        # 'with' provides configuration inputs for the action
+        with:
+          node-version: '20'
+      
+      # A step to run a shell command
+      # 'run' executes commands directly on the runner's shell
+      - name: Install dependencies
+        run: cd src && npm install
+      
+      # Another step to run tests
+      # Each step can have a name for clarity in logs
+      - name: Run tests
+        run: cd src && npm test
