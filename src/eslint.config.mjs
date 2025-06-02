@@ -27,10 +27,11 @@ export default [
   },
   {
     files: ["**/*.json"],
+    ignores: ["package-lock.json"], // Exclude package-lock.json from linting
     plugins: { jsonc },
     rules: {
-      "jsonc/no-comments": "error", // Disallow comments in JSON
-      "jsonc/valid-json-number": "error" // Ensure valid JSON numbers
+      "jsonc/no-comments": "error",
+      "jsonc/valid-json-number": "error"
     }
   },
 ];
